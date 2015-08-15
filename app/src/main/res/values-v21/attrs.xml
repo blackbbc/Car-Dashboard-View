@@ -11,5 +11,7 @@
         <attr name="sweepAngel" format="integer" />
         <attr name="startValue" format="integer" />
         <attr name="endValue" format="integer" />
+        <attr name="numView" format="reference" />
+        <attr name="labelView" format="reference" />
     </declare-styleable>
 </resources>

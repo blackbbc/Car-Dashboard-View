@@ -1,15 +1,23 @@
 package me.sweetll.drawerdemo.UI;
 
+import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.TextView;
 
+import java.util.zip.Inflater;
+
+import hugo.weaving.DebugLog;
 import me.sweetll.drawerdemo.R;
 
 /**
@@ -40,11 +48,19 @@ public class CarDashBoardView extends View {
     private int mPointStartColor;
     private int mPointEndColor;
 
+    private ValueAnimator boardAnimator;
+
+    private int numId;
+    private int labelId;
+    private TextView numView;
+    private TextView labelView;
+
     public CarDashBoardView(Context context) {
         super(context);
         init();
     }
 
+    @DebugLog
     public CarDashBoardView(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CarDashBoardView, 0, 0);
@@ -69,6 +85,16 @@ public class CarDashBoardView extends View {
 
         // calculating one point sweep
         mPointAngel = ((double) Math.abs(mSweepAngel) / (mEndValue - mStartValue));
+
+        numId = a.getResourceId(R.styleable.CarDashBoardView_numView, 0);
+        labelId = a.getResourceId(R.styleable.CarDashBoardView_labelView, 0);
+
+//        if (labelId!= 0) {
+//            labelView = (TextView) ((Activity) context).findViewById(labelId);
+//        } else {
+//            labelView = null;
+//        }
+
         a.recycle();
         init();
     }
@@ -129,7 +155,6 @@ public class CarDashBoardView extends View {
                 canvas.drawArc(mRect, mStartAngel, mPoint - mStartAngel, false, mPaint);
         }
 
-
     }
 
     public int getValue() {
@@ -137,9 +162,41 @@ public class CarDashBoardView extends View {
     }
 
     public void setValue(int value) {
-        mValue = value;
-        mPoint = (int) (mStartAngel + (mValue - mStartValue) * mPointAngel);
-        invalidate();
+        setValue(value, true);
+    }
+
+    public void setValue(final int value, final boolean animate) {
+        if (animate) {
+            boardAnimator = ValueAnimator.ofInt(getValue(), value);
+            boardAnimator.setDuration(700);
+
+            setValue(0, false);
+
+            boardAnimator.setInterpolator(new DecelerateInterpolator());
+
+            boardAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    int interpolation = (int) animation.getAnimatedValue();
+                    if (numId != 0) {
+                        numView = (TextView) getRootView().findViewById(numId);
+                        numView.setText("" + interpolation + " rpm");
+                    } else {
+                        numView = null;
+                    }
+                    setValue(interpolation, false);
+                }
+            });
+
+            if (!boardAnimator.isStarted()) {
+                boardAnimator.start();
+            }
+
+        } else {
+            mValue = value;
+            mPoint = (int) (mStartAngel + (mValue - mStartValue) * mPointAngel);
+            postInvalidate();
+        }
     }
 
 }

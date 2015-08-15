@@ -32,6 +32,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="0 rpm"
+                    android:textColor="@color/White"
+                    android:textSize="20dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:id="@+id/textView1"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Accelaration"
+                    android:textColor="@color/White"
+                    android:textSize="20dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingBottom="30dp"
+                    android:id="@+id/textView2"
+                    android:layout_gravity="bottom|center" />
+
                 <me.sweetll.drawerdemo.UI.CarDashBoardView
                     android:id="@+id/carDashBoardViewDemo"
                     android:layout_width="300dp"
@@ -49,30 +72,9 @@
                     app:strokeCap="ROUND"
                     app:strokeColor="@color/DarkGray"
                     app:strokeWidth="7dp"
-                    app:sweepAngel="270" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="0 rpm"
-                    android:textColor="@color/White"
-                    android:textSize="20dp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:id="@+id/textView"
-                    android:layout_gravity="center" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Accelaration"
-                    android:textColor="@color/White"
-                    android:textSize="20dp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:paddingBottom="30dp"
-                    android:id="@+id/textView2"
-                    android:layout_gravity="bottom|center" />
+                    app:sweepAngel="270"
+                    app:numView="@id/textView1"
+                    app:labelView="@id/textView2"/>
 
             </FrameLayout>
 
