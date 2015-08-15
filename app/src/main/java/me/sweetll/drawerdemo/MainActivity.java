@@ -8,28 +8,43 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
+import java.util.Random;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import me.sweetll.drawerdemo.UI.CarDashBoardView;
 
 public class MainActivity extends AppCompatActivity {
-    private DrawerLayout drawerLayout;
-    private Toolbar toolbar;
+    @Bind(R.id.drawer_layout) DrawerLayout drawerLayout;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.button) Button button;
+    @Bind(R.id.carDashBoardViewDemo) CarDashBoardView carDashBoardView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = setupDrawerToggle();
 
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
+
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
         return new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open,  R.string.drawer_close);
+    }
+
+    @OnClick(R.id.button)
+    public void randomSpeed(View view) {
+        carDashBoardView.setValue(new Random().nextInt(1000));
     }
 
     @Override

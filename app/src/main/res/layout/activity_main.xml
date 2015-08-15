@@ -12,8 +12,6 @@
 
         <!-- The ActionBar -->
         <android.support.v7.widget.Toolbar
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/toolbar"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -28,10 +26,63 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <me.sweetll.drawerdemo.UI.CarDashBoardView
-                android:id="@+id/carDashBoardView"
+
+            <FrameLayout
+                android:background="?attr/colorPrimary"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content">
+
+                <me.sweetll.drawerdemo.UI.CarDashBoardView
+                    android:id="@+id/carDashBoardViewDemo"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_gravity="top|center"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp"
+                    app:endValue="1000"
+                    app:pointEndColor="@color/White"
+                    app:pointStartColor="@color/White"
+                    app:startAngel="135"
+                    app:startValue="0"
+                    app:strokeCap="ROUND"
+                    app:strokeColor="@color/DarkGray"
+                    app:strokeWidth="7dp"
+                    app:sweepAngel="270" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="0 rpm"
+                    android:textColor="@color/White"
+                    android:textSize="20dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:id="@+id/textView"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Accelaration"
+                    android:textColor="@color/White"
+                    android:textSize="20dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingBottom="30dp"
+                    android:id="@+id/textView2"
+                    android:layout_gravity="bottom|center" />
+
+            </FrameLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Random Speed"
+                android:id="@+id/button"
+                android:layout_gravity="center_horizontal" />
+
         </LinearLayout>
 
     </LinearLayout>
